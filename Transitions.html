@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="http://d3js.org/d3.v3.min.js"></script>
+    <title>D3.js</title>
+</head>
+<body>
+
+    <script>
+
+        var height = 500;
+        var width = 500;
+
+        var canvas = d3.select("body")
+                        .append("svg")
+                        .attr("height", height)
+                        .attr("width", width);
+
+        var circle = canvas.append("circle")
+                            .attr("cx", 50)
+                            .attr("cy", 50)
+                            .attr("r", 25)
+                            .attr("fill", "blue")
+
+        circle.transition()
+                .duration(4000)
+                .delay(1000)
+                .attr("cx", 150)
+                .each("end", function(){ d3.select(this).attr("fill", "red")})
+                .transition()
+                .attr("cy", 150)
+                .each("end", function(){ d3.select(this).attr("fill", "blue")})
+                .transition()
+                .attr("cx", 50)
+                .attr("cy", 50)
+                .each("end", function(){ d3.select(this).attr("fill", "red")})
+
+
+
+    </script>
+</body>
+</html>
