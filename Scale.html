@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>D3.js</title>
+    <script src="http://d3js.org/d3.v3.min.js"></script>
+</head>
+<body>
+
+    <script>
+
+        var dataArray = [5, 10, 20, 30, 40, 50, 60];
+        var width = 500;
+        var height = 500;
+
+        var widthScale = d3.scale.linear()
+                                    .domain([0, 60])
+                                    .range([0, width])
+
+        var color = d3.scale.linear()
+                                .domain([0, 60])
+                                .range(["red", "blue"])
+
+        var canvas = d3.select("body")
+                        .append("svg")
+                        .attr("height", height)
+                        .attr("width", width);
+
+        var bars = canvas.selectAll("rect")
+                            .data(dataArray)
+                            .enter()
+                            .append("rect")
+                            .attr("width", d => widthScale(d))
+                            .attr("height", 50)
+                            .attr("fill", d => color(d))
+                            .attr("y", (d,i) => i * 100)
+
+    </script>
+</body>
+</html>
