@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="http://d3js.org/d3.v3.min.js"></script>
+    <title>D3.js</title>
+</head>
+<body>
+
+    <script>
+
+        var data = [10, 50, 80]
+        var height = 1500;
+        var width = 1500;
+        var r = 300;
+
+        var canvas = d3.select("body")
+                        .append("svg")
+                        .attr("height", height)
+                        .attr("width", width);
+
+        var color = d3.scale.ordinal()
+                            .range(["red", "blue", "green"])
+
+        var group = canvas.append("g")
+                            .attr("transform", "translate(300, 300)")
+
+        var arcGenerator = d3.svg.arc()
+                    .innerRadius(200)
+                    .outerRadius(r)
+
+        var pie = d3.layout.pie()
+                            .value( d => d )
+
+        var arcs = group.selectAll(".arc")
+                        .data(pie(data))
+                        .enter()
+                        .append("g")
+                        .attr("class", "arc")
+                        .attr("fill", d => color(d.data))
+
+        arcs.append("path")
+                .attr("d", arcGenerator)
+
+        arcs.append("text")
+            .text(d => d.data)
+            .attr("transform", (d) => (`translate(${arcGenerator.centroid(d)})`))
+            .attr("text-anchor", "middle")
+            .attr("fill", "black")
+
+    </script>
+</body>
+</html>
